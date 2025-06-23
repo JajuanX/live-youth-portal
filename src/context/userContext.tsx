@@ -7,6 +7,7 @@ interface UserContextType {
 	login: (email: string, password: string) => Promise<LoginResult>;
 	logout: () => void;
 	loading: boolean;
+	refetchUser: () => Promise<void>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
