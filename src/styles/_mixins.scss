@@ -1,0 +1,44 @@
+// MEDIA QUERY MIXINS
+@mixin mobile {
+	@media (max-width: #{$breakpoint-mobile}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$breakpoint-desktop}) {
+		@content;
+	}
+}
+
+// FLEX LAYOUT
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+// GRID LAYOUT
+@mixin grid($cols, $gap: 1rem) {
+	display: grid;
+	grid-template-columns: repeat($cols, 1fr);
+	gap: $gap;
+}
+
+// TEXT TRUNCATION
+@mixin text-ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
