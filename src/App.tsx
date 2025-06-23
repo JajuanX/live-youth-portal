@@ -1,12 +1,14 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
-import './App.scss';
+import { Route, Routes, Navigate } from "react-router-dom";
+import "./App.scss";
 
-import Home from './pages/Home/Home';
-import NotFoundPage from './pages/NotFoundPage/NotfoundPage';
+import Home from "./pages/Home/Home";
+import NotFoundPage from "./pages/NotFoundPage/NotfoundPage";
 
-import { useUserContext } from './context/userContext';
-import LoginPage from './components/LoginPage/LoginPage';
-import SignupPage from './components/SignupPage/SignupPage';
+import { useUserContext } from "./context/userContext";
+import LoginPage from "./components/LoginPage/LoginPage";
+import SignupPage from "./components/SignupPage/SignupPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import ProfileForm from "./pages/ProfileForm/ProfileForm";
 
 function App() {
 	const { user, loading } = useUserContext();
@@ -18,9 +20,22 @@ function App() {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
-			<Route path="/login" element={user ? <Navigate to="/dashboard" /> : <LoginPage />} />
-			<Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <SignupPage />} />
-			{/* <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} /> */}
+			<Route
+				path="/login"
+				element={user ? <Navigate to="/dashboard" /> : <LoginPage />}
+			/>
+			<Route
+				path="/signup"
+				element={user ? <Navigate to="/dashboard" /> : <SignupPage />}
+			/>
+			<Route
+				path="/profile"
+				element={user ? <ProfilePage /> : <Navigate to="/login" />}
+			/>
+			<Route
+				path="/profile/edit"
+				element={user ? <ProfileForm /> : <Navigate to="/login" />}
+			/>
 			<Route path="*" element={<NotFoundPage />} />
 		</Routes>
 	);
