@@ -1,4 +1,4 @@
-@use "../../styles/variables" as *;
+@use '../../styles/variables' as *;
 @use 'sass:color';
 
 .signup-form {
@@ -10,6 +10,7 @@
 	background-color: $color-background;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 	font-family: $font-family-base;
+	position: relative;
 
 	&__heading {
 		margin-bottom: $spacing-md;
@@ -26,6 +27,7 @@
 		border: 1px solid $color-muted;
 		border-radius: $radius-sm;
 		font-size: $font-size-base;
+		background-color: #fff;
 	}
 
 	&__error {
@@ -48,6 +50,55 @@
 
 		&:hover {
 			background-color: color.adjust($color-accent, $lightness: -10%);
+		}
+	}
+
+	// Custom dropdown styles
+	&__dropdown {
+		position: relative;
+		margin-bottom: $spacing-sm;
+
+		&-trigger {
+			width: 100%;
+			padding: $spacing-sm;
+			border: 1px solid $color-muted;
+			border-radius: $radius-sm;
+			background-color: #fff;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: $font-size-base;
+		}
+
+		&-arrow {
+			font-size: $font-size-sm;
+			color: $color-muted;
+			margin-left: $spacing-xs;
+		}
+
+		&-list {
+			position: absolute;
+			width: 100%;
+			top: 100%;
+			left: 0;
+			z-index: 10;
+			border: 1px solid $color-muted;
+			border-radius: $radius-sm;
+			background-color: #fff;
+			margin-top: 0.25rem;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+			list-style: none;
+		}
+
+		&-option {
+			padding: $spacing-sm;
+			cursor: pointer;
+			font-size: $font-size-base;
+
+			&:hover {
+				background-color: $color-background;
+			}
 		}
 	}
 }
