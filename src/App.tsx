@@ -9,6 +9,10 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ProfileForm from "./pages/ProfileForm/ProfileForm";
+import TeamListPage from "./pages/TeamListPage/TeamListPage";
+import TeamDetailPage from "./pages/TeamDetailPage/TeamDetailPage";
+import CreateTeamPage from "./pages/CreateTeamPage/CreateTeamPage";
+import CoachDashboard from "./pages/CoachDashboard/CoachDashboard";
 
 function App() {
 	const { user, loading } = useUserContext();
@@ -36,6 +40,20 @@ function App() {
 				path="/profile/edit"
 				element={user ? <ProfileForm /> : <Navigate to="/login" />}
 			/>
+			<Route path="/teams" element={<TeamListPage />} />
+			<Route path="/teams/:id" element={<TeamDetailPage />} />
+			<Route
+				path="/teams/create"
+				element={
+					user?.role === "coach" || user?.role === "admin" ? (
+						<CreateTeamPage />
+					) : (
+						<Navigate to="/teams" />
+					)
+				}
+			/>
+			<Route path="/dashboard" element={<CoachDashboard />} />
+
 			<Route path="*" element={<NotFoundPage />} />
 		</Routes>
 	);
