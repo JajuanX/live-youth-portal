@@ -5,14 +5,14 @@ export interface AuthForm {
 
 export interface SignupForm extends AuthForm {
 	name: string;
-	role: 'player' | 'coach' | 'admin';
+	role: "player" | "coach" | "admin";
 }
 
 export interface User {
 	id: string;
 	name: string;
 	email: string;
-	role: 'player' | 'coach' | 'admin';
+	role: "player" | "coach" | "admin";
 	team?: string | null;
 	bio?: string;
 	socials?: {
@@ -31,4 +31,26 @@ export interface LoginResult {
 	success: boolean;
 	msg: string;
 	error?: unknown;
+}
+
+export interface Player {
+	_id: string;
+	name: string;
+	email: string;
+	position?: string;
+	profileImage?: string;
+}
+
+export interface Team {
+	_id: string;
+	name: string;
+	sport?: string;
+	logo?: string;
+	level?: string;
+	createdBy: {
+		id: string;
+		name: string;
+	};
+	players: Player[];
+	pendingRequests: Player[];
 }
