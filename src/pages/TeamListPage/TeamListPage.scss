@@ -1,0 +1,71 @@
+@use '../../styles/variables' as *;
+
+.team-list {
+	max-width: 800px;
+	margin: $spacing-xl auto;
+	padding: $spacing-lg;
+	font-family: $font-family-base;
+
+	&__heading {
+		font-size: $font-size-xl;
+		margin-bottom: $spacing-md;
+		text-align: center;
+		color: $color-primary;
+	}
+
+	&__container {
+		width: 10rem;
+	}
+
+	&__photo {
+		width: 100%;
+		object-fit: contain;
+	}
+
+	&__filter {
+		width: 100%;
+		padding: $spacing-sm;
+		font-size: $font-size-base;
+		margin-bottom: $spacing-lg;
+		border: 1px solid $color-muted;
+		border-radius: $radius-sm;
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: $spacing-md;
+		list-style: none;
+
+		@media (max-width: $breakpoint-tablet) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	&__item {
+		border: 1px solid $color-muted;
+		border-radius: $radius-md;
+		padding: $spacing-md;
+		background-color: $color-background;
+		transition: box-shadow 0.2s ease;
+
+		a {
+			text-decoration: none;
+			color: $color-text;
+
+			h3 {
+				font-size: $font-size-lg;
+				margin-bottom: $spacing-xs;
+			}
+
+			p {
+				color: $color-muted;
+				font-size: $font-size-sm;
+			}
+		}
+
+		&:hover {
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		}
+	}
+}
