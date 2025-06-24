@@ -1,24 +1,47 @@
-// services/team.service.ts
+import { Team } from "../types/auth";
 import API from "./api";
 
 export const TeamService = {
-	async getAllTeams() {
-		const response = await API.get("/teams");
-		return response.data;
+	async getAll(): Promise<{ teams: Team[] }> {
+		const res = await API.get("/teams");
+		return res.data;
 	},
 
-	async getTeamById(teamId: string) {
-		const response = await API.get(`/teams/${teamId}`);
-		return response.data;
+	async getById(id: string): Promise<Team> {
+		const res = await API.get<Team>(`/teams/${id}`);
+		return res.data;
 	},
 
-	async createTeam(data: FormData) {
+	// team.service.ts
+	async createTeam(data: {
+		name: string;
+		sport: string;
+		level: string;
+		logo?: string;
+	}) {
 		const response = await API.post("/teams", data);
 		return response.data;
 	},
 
-	async requestToJoin(teamId: string) {
-		const response = await API.post(`/teams/${teamId}/join`);
-		return response.data;
+	async getMyTeam(): Promise<{ team: Team }> {
+		const res = await API.get("/teams/my-team");
+		return res.data;
+	},
+
+	async requestToJoin(teamId: string): Promise<{ message: string }> {
+		const res = await API.post(`/teams/${teamId}/join`);
+		return res.data;
+	},
+
+	approveRequest(teamId: string, playerId: string) {
+		return API.post(`/teams/${teamId}/requests/${playerId}/approve`);
+	},
+
+	denyRequest(teamId: string, playerId: string) {
+		return API.post(`/teams/${teamId}/requests/${playerId}/deny`);
+	},
+
+	removePlayer(teamId: string, playerId: string) {
+		return API.post(`/teams/${teamId}/remove-player`, { playerId });
 	},
 };
