@@ -13,6 +13,21 @@
 		margin-bottom: $spacing-sm;
 	}
 
+	&__edit-button {
+	background-color: $color-accent;
+	color: white;
+	padding: $spacing-xs $spacing-sm;
+	border: none;
+	border-radius: $radius-md;
+	cursor: pointer;
+	margin-bottom: $spacing-md;
+
+	&:hover {
+		background-color: darken($color-accent, 10%);
+	}
+}
+
+
 	&__section-title {
 		margin-top: $spacing-lg;
 		font-size: $font-size-lg;

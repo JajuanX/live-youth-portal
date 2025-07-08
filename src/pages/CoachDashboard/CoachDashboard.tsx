@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { Team } from "../../types/auth";
 import { useUserContext } from "../../context/userContext";
 import { TeamService } from "../../services/team.service";
-import { useNavigate } from "react-router-dom";
 import "./CoachDashboard.scss";
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function CoachDashboard() {
+	const navigate = useNavigate();
 	const { user } = useUserContext();
 	const [team, setTeam] = useState<Team | null>(null);
 	const [error, setError] = useState("");
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		(async () => {
 			try {
 				const res = await TeamService.getMyTeam();
-				setTeam(res.team);
+				setTeam(res.team);				
 			} catch {
 				setError("No team found or failed to load");
 			}
@@ -42,19 +42,18 @@ export default function CoachDashboard() {
 		}
 	};
 
-const handleRemovePlayer = async (playerId: string) => {
-	if (!team) return;
+	const handleRemovePlayer = async (playerId: string) => {
+		if (!team) return;
 
-	try {
-		await TeamService.removePlayer(team._id, playerId);
-		const res = await TeamService.getMyTeam(); // refresh
-		setTeam(res.team);
-	} catch (err) {
-		console.error(err);
-		alert('Failed to remove player.');
-	}
-};
-
+		try {
+			await TeamService.removePlayer(team._id, playerId);
+			const res = await TeamService.getMyTeam(); // refresh
+			setTeam(res.team);
+		} catch (err) {
+			console.error(err);
+			alert("Failed to remove player.");
+		}
+	};
 
 	if (user?.role !== "coach" && user?.role !== "admin") {
 		return <p>Unauthorized</p>;
@@ -69,6 +68,13 @@ const handleRemovePlayer = async (playerId: string) => {
 			<p className="coach-dashboard__subheading">
 				{team.sport} - {team.level}
 			</p>
+			<button
+				className="coach-dashboard__edit-button"
+				onClick={() => navigate(`/teams/${team._id}/edit`)}
+			>
+				Edit Team
+			</button>
+
 			<h3 className="coach-dashboard__section-title">Pending Requests</h3>
 			{team.pendingRequests.length === 0 ? (
 				<p className="coach-dashboard__empty">No pending requests.</p>
@@ -84,7 +90,9 @@ const handleRemovePlayer = async (playerId: string) => {
 								/>
 							)}
 							<div>
-								<p className="coach-dashboard__player-name">{player.name}</p>
+								<Link to={`/players/${player._id}`}>
+									<p className="coach-dashboard__player-name">{player.name}</p>
+								</Link>
 								<p className="coach-dashboard__player-meta">
 									{player.email} {player.position && `| ${player.position}`}
 								</p>
@@ -123,7 +131,9 @@ const handleRemovePlayer = async (playerId: string) => {
 								/>
 							)}
 							<div>
-								<p className="coach-dashboard__player-name">{player.name}</p>
+								<Link to={`/players/${player._id}`}>
+									<p className="coach-dashboard__player-name">{player.name}</p>
+								</Link>
 								<p className="coach-dashboard__player-meta">{player.email}</p>
 
 								{/* 👇 Remove button */}
