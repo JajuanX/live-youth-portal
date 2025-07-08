@@ -1,0 +1,58 @@
+@use '../../styles/variables' as *;
+
+.get-started {
+	background-color: $color-accent;
+	color: white;
+	padding: $spacing-xl $spacing-md;
+	text-align: center;
+
+	&__content {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	&__heading {
+		font-size: $font-size-xl;
+		margin-bottom: $spacing-sm;
+	}
+
+	&__text {
+		font-size: $font-size-base;
+		margin-bottom: $spacing-md;
+	}
+
+	&__actions {
+		display: flex;
+		flex-direction: column;
+		gap: $spacing-sm;
+
+		@media (min-width: $breakpoint-tablet) {
+			flex-direction: row;
+			justify-content: center;
+		}
+	}
+
+	&__button {
+		background-color: white;
+		color: $color-accent;
+		padding: $spacing-sm $spacing-md;
+		border-radius: $radius-full;
+		font-weight: bold;
+		text-decoration: none;
+		transition: background-color 0.3s;
+
+		&:hover {
+			background-color: $color-background;
+		}
+
+		&--secondary {
+			background-color: transparent;
+			border: 2px solid white;
+			color: white;
+
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+		}
+	}
+}

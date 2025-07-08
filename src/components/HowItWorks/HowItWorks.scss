@@ -1,0 +1,40 @@
+@use '../../styles/variables' as *;
+
+.how-it-works {
+	background-color: $color-primary;
+	color: white;
+	padding: $spacing-xl $spacing-md;
+	text-align: center;
+
+	&__title {
+		font-size: $font-size-xl;
+		margin-bottom: $spacing-lg;
+	}
+
+	&__steps {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: $spacing-lg;
+	}
+
+	&__step {
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: $radius-md;
+		padding: $spacing-md;
+	}
+
+	&__icon {
+		font-size: 2.5rem;
+		margin-bottom: $spacing-sm;
+	}
+
+	&__step-title {
+		font-size: $font-size-lg;
+		margin-bottom: $spacing-xs;
+	}
+
+	&__text {
+		font-size: $font-size-sm;
+		color: $color-background;
+	}
+}
