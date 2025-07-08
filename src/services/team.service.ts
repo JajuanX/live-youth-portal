@@ -1,4 +1,4 @@
-import { Team } from "../types/auth";
+import { Team, TeamUpdatePayload } from "../types/auth";
 import API from "./api";
 
 export const TeamService = {
@@ -33,15 +33,20 @@ export const TeamService = {
 		return res.data;
 	},
 
-	approveRequest(teamId: string, playerId: string) {
+	async updateTeam(teamId: string, data: TeamUpdatePayload) {
+		const res = await API.put(`/teams/${teamId}`, data);
+		return res.data;
+	},
+
+	async approveRequest(teamId: string, playerId: string) {
 		return API.post(`/teams/${teamId}/requests/${playerId}/approve`);
 	},
 
-	denyRequest(teamId: string, playerId: string) {
+	async denyRequest(teamId: string, playerId: string) {
 		return API.post(`/teams/${teamId}/requests/${playerId}/deny`);
 	},
 
-	removePlayer(teamId: string, playerId: string) {
+	async removePlayer(teamId: string, playerId: string) {
 		return API.post(`/teams/${teamId}/remove-player`, { playerId });
 	},
 };
