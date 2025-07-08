@@ -23,7 +23,7 @@ export default function LoginPage() {
 		}
 		const result = await login(form.email, form.password);
 		if (result.success) {
-			navigate('/dashboard');
+			navigate('/');
 		} else {
 			setError(result.msg);
 		}
