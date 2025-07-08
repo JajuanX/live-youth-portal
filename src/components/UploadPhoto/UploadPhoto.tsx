@@ -107,8 +107,28 @@ const UploadPhoto: React.FC<UploadPhotoProps> = ({
 				</div>
 			)}
 
-			{urlPath && (
-				<img src={urlPath} alt="Uploaded" className="upload-photo__preview" />
+			{urlPath && !showCropper && (
+				<div className="upload-photo__preview-container">
+					<img src={urlPath} alt="Uploaded" className="upload-photo__preview" />
+					<div className="upload-photo__preview-actions">
+						<label className="upload-photo__change-btn">
+							Change Photo
+							<input
+								type="file"
+								accept="image/*"
+								onChange={handleFileInput}
+								className="upload-photo__input"
+							/>
+						</label>
+						<button
+							type="button"
+							className="upload-photo__remove-btn"
+							onClick={() => setUrlPath("")}
+						>
+							Remove Photo
+						</button>
+					</div>
+				</div>
 			)}
 
 			{error && <p className="upload-photo__error">{error}</p>}

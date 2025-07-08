@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { TeamService } from '../../services/team.service';
 import { useUserContext } from '../../context/userContext';
-import './TeamDetailPage.scss';
 import { Team } from '../../types/auth';
+import './TeamDetailPage.scss';
 
 export default function TeamDetailPage() {
 	const { id } = useParams();
@@ -17,6 +17,8 @@ export default function TeamDetailPage() {
 			try {
 				const data = await TeamService.getById(id!);
 				setTeam(data);
+								console.log(data);
+
 			} catch {
 				setError('Failed to load team.');
 			}
@@ -32,29 +34,64 @@ export default function TeamDetailPage() {
 		}
 	};
 
-	if (!team) return <p>Loading...</p>;
+	if (!team) return <p>Loading team...</p>;
 
 	const canRequest =
 		user?.role === 'player' && !user?.team && success === '';
 
 	return (
 		<div className="team-detail">
-			<h2 className="team-detail__name">{team.name}</h2>
-			<p className="team-detail__info"><strong>Sport:</strong> {team.sport}</p>
-			<p className="team-detail__info"><strong>Level:</strong> {team.level}</p>
+			<div className="team-detail__header">
+				{team.logo && (
+					<img
+						src={team.logo}
+						alt="Team Logo"
+						className="team-detail__logo"
+					/>
+				)}
+			</div>
 
-			{team.logo && (
-				<img src={team.logo} alt="Team Logo" className="team-detail__logo" />
-			)}
+			<div className="team-detail__card">
+				<h2 className="team-detail__name">{team.name}</h2>
+				<p className="team-detail__meta">
+					{team.sport} | {team.level}
+				</p>
+				<p className="team-detail__meta">
+					Coach: {team.createdBy?.name || 'N/A'}
+				</p>
 
-			{canRequest && (
-				<button className="team-detail__button" onClick={handleJoinRequest}>
-					Request to Join
-				</button>
-			)}
+				{canRequest && (
+					<button className="team-detail__button" onClick={handleJoinRequest}>
+						Request to Join
+					</button>
+				)}
 
-			{success && <p className="team-detail__success">{success}</p>}
-			{error && <p className="team-detail__error">{error}</p>}
+				{success && <p className="team-detail__success">{success}</p>}
+				{error && <p className="team-detail__error">{error}</p>}
+			</div>
+
+			<div className="team-detail__section">
+				<h3>Players</h3>
+				{team.players?.length ? (
+					<div className="team-detail__grid">
+						{team.players.map((player) => (
+							<div key={player._id} className="team-detail__player-card">
+								<img
+									src={player.profileImage || '/default-avatar.png'}
+									alt={player.name}
+									className="team-detail__player-img"
+								/>
+								<h4 className="team-detail__player-name">{player.name}</h4>
+								<p className="team-detail__player-position">
+									{player.position || 'Position N/A'}
+								</p>
+							</div>
+						))}
+					</div>
+				) : (
+					<p>No players on this team yet.</p>
+				)}
+			</div>
 		</div>
 	);
 }
