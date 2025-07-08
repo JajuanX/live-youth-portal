@@ -1,5 +1,24 @@
+@use "./styles/fonts"; // import your _fonts.scss file
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+}
+
+body {
+	font-family: "Inter", sans-serif;
+	font-weight: 400;
+	color: #222;
+	background-color: #000;
+}
+
+h1,
+h2,
+h3,
+.heading {
+	font-family: "Bebas Neue", sans-serif;
+	font-weight: normal;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
 }
